@@ -15,7 +15,7 @@ public class FusionCodeInsightTest extends BasePlatformTestCase {
 
     public void testFindUsages() {
         Collection<Usage> usage = myFixture.testFindUsagesUsingAction("fusion/codeInsight/findUsages.fusion");
-        assertEquals(3, usage.size());
+        assertEquals(4, usage.size());
     }
 
     public void testRename() {
