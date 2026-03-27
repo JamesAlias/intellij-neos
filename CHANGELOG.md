@@ -4,6 +4,12 @@
 
 ## [Unreleased]
 
+## [1.26.0] - 2026-03-27
+
+### Added
+
+- Compatibility with 2026.1
+
 ## [1.25.0] - 2025-12-11
 
 ### Added

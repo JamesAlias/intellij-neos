@@ -1,5 +1,6 @@
 import org.jetbrains.changelog.Changelog
 import org.jetbrains.changelog.markdownToHTML
+import org.jetbrains.intellij.platform.gradle.IntelliJPlatformType
 import org.jetbrains.intellij.platform.gradle.TestFrameworkType
 import org.jetbrains.grammarkit.tasks.GenerateLexerTask
 import org.jetbrains.grammarkit.tasks.GenerateParserTask
@@ -49,7 +50,10 @@ dependencies {
 
     // IntelliJ Platform Gradle Plugin Dependencies Extension - read more: https://plugins.jetbrains.com/docs/intellij/tools-intellij-platform-gradle-plugin-dependencies-extension.html
     intellijPlatform {
-        create(providers.gradleProperty("platformType"), providers.gradleProperty("platformVersion"))
+        create {
+            type.set(providers.gradleProperty("platformType").map { IntelliJPlatformType.fromCode(it) })
+            version.set(providers.gradleProperty("platformVersion"))
+        }
 
         // Plugin Dependencies. Uses `platformBundledPlugins` property from the gradle.properties file for bundled IntelliJ Platform plugins.
         bundledPlugins(providers.gradleProperty("platformBundledPlugins").map { it.split(',') })
@@ -133,25 +137,25 @@ grammarKit {
     grammarKitRelease = providers.gradleProperty("grammarKitVersion")
 }
 
-val generateEelLexer = task<GenerateLexerTask>("GenerateEelLexer") {
+val generateEelLexer = tasks.register<GenerateLexerTask>("GenerateEelLexer") {
     sourceFile = file("src/main/grammars/EelLexer.flex")
     targetOutputDir = file("src/gen/de/vette/idea/neos/lang/eel/parser")
     purgeOldFiles = true
 }
 
-val generateAfxLexer = task<GenerateLexerTask>("GenerateAfxLexer") {
+val generateAfxLexer = tasks.register<GenerateLexerTask>("GenerateAfxLexer") {
     sourceFile = file("src/main/grammars/AfxLexer.flex")
     targetOutputDir = file("src/gen/de/vette/idea/neos/lang/afx/parser")
     purgeOldFiles = true
 }
 
-val generateFusionLexer = task<GenerateLexerTask>("GenerateFusionLexer") {
+val generateFusionLexer = tasks.register<GenerateLexerTask>("GenerateFusionLexer") {
     sourceFile = file("src/main/grammars/FusionLexer.flex")
     targetOutputDir = file("src/gen/de/vette/idea/neos/lang/fusion/parser")
     purgeOldFiles = true
 }
 
-val generateEelParser = task<GenerateParserTask>("GenerateEelParser") {
+val generateEelParser = tasks.register<GenerateParserTask>("GenerateEelParser") {
     sourceFile = file("src/main/grammars/EelParser.bnf")
     targetRootOutputDir = file("src/gen")
     pathToParser = "/de/vette/idea/neos/lang/eel/parser/EelParser.java"
@@ -159,7 +163,7 @@ val generateEelParser = task<GenerateParserTask>("GenerateEelParser") {
     purgeOldFiles = true
 }
 
-val generateFusionParser = task<GenerateParserTask>("GenerateFusionParser") {
+val generateFusionParser = tasks.register<GenerateParserTask>("GenerateFusionParser") {
     sourceFile = file("src/main/grammars/FusionParser.bnf")
     targetRootOutputDir = file("src/gen")
     pathToParser = "/de/vette/idea/neos/lang/fusion/parser/FusionParser.java"
