@@ -65,6 +65,9 @@ dependencies {
         pluginVerifier()
         zipSigner()
         testFramework(TestFrameworkType.Platform)
+
+        // Add modules only accessible via IntelliJ Ultimate subscription - like the php module
+        testBundledModule("com.intellij.modules.ultimate")
     }
 }
 

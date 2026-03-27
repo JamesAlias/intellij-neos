@@ -79,7 +79,7 @@ public class SettingsForm implements PhpFrameworkConfigurable {
         excludePackageSymlinks = new JCheckBox("Exclude symlinked packages");
         locales = new CollectionListModel<>();
 
-        JBList localeList = new JBList<String>();
+        JBList<String> localeList = new JBList<String>();
         localeList.setModel(this.locales);
 
         ToolbarDecorator editableList = ToolbarDecorator.createDecorator(localeList);
@@ -149,9 +149,7 @@ public class SettingsForm implements PhpFrameworkConfigurable {
     private void updateUIFromSettings() {
         pluginEnabled.setSelected(getSettings().pluginEnabled);
         excludePackageSymlinks.setSelected(getSettings().excludePackageSymlinks);
-        getSettings().locales.forEach(s -> {
-            locales.add(s);
-        });
+        getSettings().locales.forEach(s -> locales.add(s));
     }
 
     private Settings getSettings() {
@@ -165,9 +163,9 @@ public class SettingsForm implements PhpFrameworkConfigurable {
 
     class AddAction implements AnActionButtonRunnable {
 
-        CollectionListModel list;
+        CollectionListModel<String> list;
 
-        public AddAction(CollectionListModel list) {
+        public AddAction(CollectionListModel<String> list) {
             this.list = list;
         }
 
