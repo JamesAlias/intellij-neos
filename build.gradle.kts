@@ -46,7 +46,7 @@ sourceSets {
 dependencies {
     testImplementation(libs.junit)
     implementation("io.sentry:sentry:8.37.1")
-    implementation("org.apache.commons:commons-text:1.14.0")
+    implementation("org.apache.commons:commons-text:1.15.0")
 
     // IntelliJ Platform Gradle Plugin Dependencies Extension - read more: https://plugins.jetbrains.com/docs/intellij/tools-intellij-platform-gradle-plugin-dependencies-extension.html
     intellijPlatform {
